@@ -1,6 +1,8 @@
 import supabase from "../lib/supabaseClient";
 import { useEffect, useState } from "react";
 import SmoothieCard from "../components/SmoothieCard";
+import Intro from "../components/Intro";
+import GHIcon from "../components/GHIcon";
 
 export interface SmoothieObject {
   id: number;
@@ -38,7 +40,7 @@ const Home = () => {
       const { data, error } = await supabase
         .from("smoothies")
         .select()
-        .order(orderBy, { ascending: false });
+        .order(orderBy, { ascending: orderBy === "title" ? true : false });
 
       if (error) {
         setFetchError(`Fetching smoothie failed! ${error.message}`);
@@ -55,46 +57,52 @@ const Home = () => {
   }, [orderBy]);
 
   return (
-    <div className="page home">
-      {fetchError && (
-        <div>
-          <p>{fetchError}</p>
-        </div>
-      )}
-      {smoothies && (
-        <div className="smoothies">
-          <div className="order-by">
-            <h3>Order By</h3>
-            <button
-              className={`${orderBy === "created_at" ? "active" : ""}`}
-              onClick={() => setOrderBy("created_at")}
-            >
-              Created Date
-            </button>
-            <button
-              className={`${orderBy === "title" ? "active" : ""}`}
-              onClick={() => setOrderBy("title")}
-            >
-              Title
-            </button>
-            <button
-              className={`${orderBy === "rating" ? "active" : ""}`}
-              onClick={() => setOrderBy("rating")}
-            >
-              Rating
-            </button>
+    <div className="beach-background">
+      <div className="page home">
+        {fetchError && (
+          <div>
+            <p>{fetchError}</p>
           </div>
-          <div className="smoothie-grid">
-            {smoothies.map((smoothie, i) => (
-              <SmoothieCard
-                key={`${smoothie.id}__${i}`}
-                smoothie={smoothie}
-                onDelete={handleDelete}
-              />
-            ))}
-          </div>
+        )}
+        <div className="flex gh-title-container">
+          <GHIcon />
+          <Intro />
         </div>
-      )}
+        {smoothies && (
+          <div className="smoothies">
+            <div className="order-by">
+              <h3>Order By</h3>
+              <button
+                className={`${orderBy === "created_at" ? "active" : ""}`}
+                onClick={() => setOrderBy("created_at")}
+              >
+                Created Date
+              </button>
+              <button
+                className={`${orderBy === "title" ? "active" : ""}`}
+                onClick={() => setOrderBy("title")}
+              >
+                Title
+              </button>
+              <button
+                className={`${orderBy === "rating" ? "active" : ""}`}
+                onClick={() => setOrderBy("rating")}
+              >
+                Rating
+              </button>
+            </div>
+            <div className="smoothie-grid">
+              {smoothies.map((smoothie, i) => (
+                <SmoothieCard
+                  key={`${smoothie.id}__${i}`}
+                  smoothie={smoothie}
+                  onDelete={handleDelete}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -3,6 +3,7 @@
 :root {
   --primary: #12bca2;
   --secondary: #6d15df;
+  --font-color: #f3f3f3;
 }
 h1,h2,h3 {
   margin: 0;
@@ -14,22 +15,51 @@ body {
   font-family: 'Poppins';
   background: #f2f2f2;
 }
+.title-container {
+  align-items: center;
+}
+.title-container img {
+  width: 16rem;
+}
+@media (max-width: 500px) {
+  .title-container img {
+    display: none;
+  }
+}
 nav {
   background: var(--primary);
   padding: 10px 20px;
   text-align: center;
 }
 nav a {
-  color: #f2f2f2;
+  color: var(--font-color);
   margin: 10px;
   display: inline-block;
+  text-decoration: none;
+}
+nav .active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+nav a:hover {
+  text-decoration: underline;
 }
 nav h1 {
-  color: #fff;
+  color: var(--font-color);
+  text-align: center;
+  flex-grow: 1;
+  margin-right: 16rem;
+  font-size: 42px;
+}
+@media (max-width: 500px) {
+  nav h1 {
+    font-size: 22px;
+    margin-right: 0;
+  }
 }
 .page {
   max-width: 1200px;
-  margin: 20px auto;
+  margin: 0 auto;
   padding: 20px;
 }
 
@@ -40,6 +70,11 @@ nav h1 {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 40px;
 }
+@media (max-width: 500px) {
+  .smoothie-grid {
+    grid-template-columns: 1fr;
+  }
+}
 .smoothie-card {
   width: 100%;
   padding: 10px;
@@ -47,6 +82,7 @@ nav h1 {
   box-sizing: border-box;
   border-radius: 6px;
   position: relative;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 .smoothie-card .rating {
   position: absolute;
@@ -60,6 +96,10 @@ nav h1 {
   padding: 20px 0;
   line-height: 0px;
   text-align: center;
+}
+
+.smoothie-card h3 {
+  margin-top: 8px;
 }
 
 /* forms */
@@ -89,8 +129,6 @@ form button {
 }
 
 .smoothie-card .buttons {
-  position: fixed;
-  margin: -30px -26px;
 }
 
 .smoothie-card i {
@@ -112,5 +150,50 @@ form button {
   border-radius: 6px;
   font-family: "Poppins";
   cursor: pointer;
+  width: 130px;
+  font-size: 16px;
 }
 
+@media (max-width: 500px) {
+  .order-by button {
+  width: 90px;
+  font-size: 14px;
+  }
+}
+
+.order-by h3 {
+  padding: 0 0 8px 0;
+  color: var(--font-color);
+}
+
+.order-by .active {
+  font-weight: bold;
+  border: 2px solid #fff;
+}
+
+.intro {
+  text-align: center;
+  color: var(--font-color);
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 12px;
+  flex-grow: 1;
+}
+
+.flex {
+  display: flex;
+}
+
+.gh-icon img {
+  width: 100px;
+  height: 100px;
+}
+
+.gh-title-container {
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.beach-background {
+  background-image: url('/beach-background.jpg');
+  min-height: 100vh;
+}
